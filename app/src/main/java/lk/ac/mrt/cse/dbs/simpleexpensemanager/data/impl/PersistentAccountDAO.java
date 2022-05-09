@@ -8,15 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
 
 public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO {
     public static final String EXPENSE_TYPE_TABLE = "ExpenseType";
@@ -110,7 +107,7 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-        Account account = null;
+        Account account;
 
         if (cursor.moveToFirst()){
             String bankName = cursor.getString(1);
@@ -145,7 +142,7 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
     }
 
     @Override
-    public void removeAccount(String accountNo) throws InvalidAccountException {
+    public void removeAccount(String accountNo) {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
